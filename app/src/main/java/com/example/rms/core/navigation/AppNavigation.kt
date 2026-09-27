@@ -140,6 +140,7 @@ private fun AuthAwareNavHost(
         ) {
             composable("main_tabs") {
                 MainScreen(
+                    onNavigateToPayBoleto = { navController.navigate("scan") },
                     onLogout = {
                         navController.navigate(AUTH_GRAPH) {
                             popUpTo(MAIN_GRAPH) { inclusive = true }

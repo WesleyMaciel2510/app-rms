@@ -26,7 +26,7 @@ import com.example.rms.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(onLogout: () -> Unit = {}) {
+fun MainScreen(onNavigateToPayBoleto: () -> Unit = {}, onLogout: () -> Unit = {}) {
     val navController = rememberNavController()
     val selectedDestination = remember { mutableStateOf(Screen.Home) }
 
@@ -93,7 +93,7 @@ fun MainScreen(onLogout: () -> Unit = {}) {
                 FavoritesContentScreen()
             }
             composable(route = Screen.Profile.route) {
-                ProfileContentScreen(onLogout = onLogout)
+                ProfileContentScreen(onPayBoleto = onNavigateToPayBoleto, onLogout = onLogout)
             }
         }
     }

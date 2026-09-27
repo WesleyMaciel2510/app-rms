@@ -42,12 +42,14 @@ fun SearchField(
     onValueChange: (String) -> Unit,
     placeholder: String = "Search...",
     keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Done
+    imeAction: ImeAction = ImeAction.Done,
+    enabled: Boolean = true,
 ) {
     OutlinedTextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
+        enabled = enabled,
         placeholder = {
             Text(text = placeholder, color = MaterialTheme.colorScheme.onSurfaceVariant)
         },
@@ -79,7 +81,8 @@ fun PasswordField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    errorMessage: String? = null
+    errorMessage: String? = null,
+    enabled: Boolean = true,
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     
@@ -88,6 +91,7 @@ fun PasswordField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(label) },
+        enabled = enabled,
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = KeyboardType.Password),
         singleLine = true,
