@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -27,7 +26,7 @@ import com.example.rms.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(onLogout: () -> Unit = {}) {
     val navController = rememberNavController()
     val selectedDestination = remember { mutableStateOf(Screen.Home) }
 
@@ -77,7 +76,15 @@ fun MainScreen() {
             .padding(innerPadding)
         ) {
             composable(route = Screen.Home.route) {
-                HomeContentScreen()
+                HomeContentScreen(
+                    onNavigateToSearch = {
+                        selectedDestination.value = Screen.Search
+                        navController.navigate(Screen.Search.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
             }
             composable(route = Screen.Search.route) {
                 SearchContentScreen()
@@ -86,7 +93,7 @@ fun MainScreen() {
                 FavoritesContentScreen()
             }
             composable(route = Screen.Profile.route) {
-                ProfileContentScreen()
+                ProfileContentScreen(onLogout = onLogout)
             }
         }
     }
